@@ -1,0 +1,14 @@
+en:
+  active_regulation:
+    activation:
+      active: "Active"
+      inactive: "Inactive"
+    containment:
+      contained: "Contained"
+      uncontained: "Uncontained"
+    expiration:
+      expired: "Expired"
+      unexpired: "Unexpired"
+    visibility:
+      invisible: "Invisible"
+      visible: "Visible"
