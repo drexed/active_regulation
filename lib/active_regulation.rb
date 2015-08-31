@@ -12,7 +12,7 @@ if defined?(Rails)
 
       initializer 'active_regulation' do |app|
         ActiveRegulation::Railtie.instance_eval do
-          [app.config.i18n.available_locales].each do |locale|
+          [app.config.i18n.available_locales].flatten.each do |locale|
             (I18n.load_path << path(locale)) if File.file?(path(locale))
           end
         end
