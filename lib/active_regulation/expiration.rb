@@ -5,6 +5,14 @@ module ActiveRegulation
     extend ActiveSupport::Concern
 
     included do
+      attr_accessor :expiration
+
+      validates :expiration, inclusion: { in: 0..1 },
+                             allow_blank: true,
+                             allow_nil: true
+
+      before_save :record_expiration!
+
       scope :expired,   -> { where("expires_at IS NULL OR expires_at < ?", Time.now) }
       scope :unexpired, -> { where("expires_at IS NOT NULL AND expires_at >= ?", Time.now) }
     end
@@ -37,6 +45,10 @@ module ActiveRegulation
 
     def extension_date(days=30)
       DateTime.now + days
+    end
+
+    def record_expiration!
+      self.expires_at = (expiration.zero? ? extension_date : nil) unless expiration.blank?
     end
 
   end

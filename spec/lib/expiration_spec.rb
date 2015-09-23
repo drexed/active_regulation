@@ -3,6 +3,20 @@ require "date"
 
 describe ActiveRegulation::Expiration do
 
+  describe "#record_expriation!" do
+    it "to be true" do
+      user = User.create!(expiration: 1)
+
+      expect(user.expired?).to eq(true)
+    end
+
+    it "to be false" do
+      user = User.create!(expiration: 0)
+
+      expect(user.expired?).to eq(false)
+    end
+  end
+
   describe "#expires_at" do
     it "to be nil" do
       user = User.create!

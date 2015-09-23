@@ -2,6 +2,20 @@ require "spec_helper"
 
 describe ActiveRegulation::Containment do
 
+  describe "#record_containment!" do
+    it "to be true" do
+      user = User.create!(containment: 1)
+
+      expect(user.contained?).to eq(true)
+    end
+
+    it "to be false" do
+      user = User.create!(containment: 0)
+
+      expect(user.contained?).to eq(false)
+    end
+  end
+
   describe "#contained_at" do
     it "to be nil" do
       user = User.create!
