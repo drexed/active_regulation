@@ -3,13 +3,10 @@ module ActiveRegulation
     extend ActiveSupport::Concern
 
     included do
-      attr_accessor :visibility
+      attr_accessor :visibility, :raw_visibility
 
-      validates :visibility, inclusion: { in: 0..1 },
-                             allow_blank: true,
-                             allow_nil: true
-
-      before_save :record_visibility!
+      before_save :record_visibility!,   unless: -> (obj) { obj.raw_visibility.nil? }
+      after_initialize :set_visibility!
 
       scope :visible,   -> { where(invisible_at: nil) }
       scope :invisible, -> { where.not(invisible_at: nil) }
@@ -38,7 +35,20 @@ module ActiveRegulation
     private
 
     def record_visibility!
-      self.invisible_at = (visibility.zero? ? Time.now : nil) unless visibility.blank?
+      false_value = ActiveRecord::ConnectionAdapters::Column::FALSE_VALUES.include?(visibility)
+      true_value  = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include?(visibility)
+
+      if false_value || true_value
+        self.invisible_at = (false_value ? Time.now : nil)
+      else
+        raise ArgumentError,
+          "Unknown boolean: #{visibility.inspect}. Must be a valid boolean."
+      end
+    end
+
+    def set_visibility!
+      self.raw_visibility = visibility
+      self.visibility     = visible? if visibility.nil?
     end
 
   end

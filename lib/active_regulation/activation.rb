@@ -3,13 +3,10 @@ module ActiveRegulation
     extend ActiveSupport::Concern
 
     included do
-      attr_accessor :activation
+      attr_accessor :activation, :raw_activation
 
-      validates :activation, inclusion: { in: 0..1 },
-                             allow_blank: true,
-                             allow_nil: true
-
-      before_save :record_activation!
+      before_save :record_activation!,   unless: -> (obj) { obj.raw_activation.nil? }
+      after_initialize :set_activation!
 
       scope :active,   -> { where(inactivated_at: nil) }
       scope :inactive, -> { where.not(inactivated_at: nil) }
@@ -38,7 +35,20 @@ module ActiveRegulation
     private
 
     def record_activation!
-      self.inactivated_at = (activation.zero? ? Time.now : nil) unless activation.blank?
+      false_value = ActiveRecord::ConnectionAdapters::Column::FALSE_VALUES.include?(activation)
+      true_value  = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include?(activation)
+
+      if false_value || true_value
+        self.inactivated_at = (false_value ? Time.now : nil)
+      else
+        raise ArgumentError,
+          "Unknown boolean: #{activation.inspect}. Must be a valid boolean."
+      end
+    end
+
+    def set_activation!
+      self.raw_activation = activation
+      self.activation     = active? if activation.nil?
     end
 
   end

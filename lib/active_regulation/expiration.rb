@@ -5,13 +5,10 @@ module ActiveRegulation
     extend ActiveSupport::Concern
 
     included do
-      attr_accessor :expiration
+      attr_accessor :expiration, :raw_expiration
 
-      validates :expiration, inclusion: { in: 0..1 },
-                             allow_blank: true,
-                             allow_nil: true
-
-      before_save :record_expiration!
+      before_save :record_expiration!,   unless: -> (obj) { obj.raw_expiration.nil? }
+      after_initialize :set_expiration!
 
       scope :expired,   -> { where("expires_at IS NULL OR expires_at < ?", Time.now) }
       scope :unexpired, -> { where("expires_at IS NOT NULL AND expires_at >= ?", Time.now) }
@@ -48,7 +45,20 @@ module ActiveRegulation
     end
 
     def record_expiration!
-      self.expires_at = (expiration.zero? ? extension_date : nil) unless expiration.blank?
+      false_value = ActiveRecord::ConnectionAdapters::Column::FALSE_VALUES.include?(expiration)
+      true_value  = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include?(expiration)
+
+      if false_value || true_value
+        self.expires_at = (false_value ? extension_date : nil)
+      else
+        raise ArgumentError,
+          "Unknown boolean: #{expiration.inspect}. Must be a valid boolean."
+      end
+    end
+
+    def set_expiration!
+      self.raw_expiration = expiration
+      self.expiration     = expired? if expiration.nil?
     end
 
   end

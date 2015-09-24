@@ -3,13 +3,10 @@ module ActiveRegulation
     extend ActiveSupport::Concern
 
     included do
-      attr_accessor :containment
+      attr_accessor :containment, :raw_containment
 
-      validates :containment, inclusion: { in: 0..1 },
-                              allow_blank: true,
-                              allow_nil: true
-
-      before_save :record_containment!
+      before_save :record_containment!,   unless: -> (obj) { obj.raw_containment.nil? }
+      after_initialize :set_containment!
 
       scope :contained,   -> { where.not(contained_at: nil) }
       scope :uncontained, -> { where(contained_at: nil) }
@@ -38,7 +35,20 @@ module ActiveRegulation
     private
 
     def record_containment!
-      self.contained_at = (containment.zero? ? nil : Time.now) unless containment.blank?
+      false_value = ActiveRecord::ConnectionAdapters::Column::FALSE_VALUES.include?(containment)
+      true_value  = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include?(containment)
+
+      if false_value || true_value
+        self.contained_at = (false_value ? nil : Time.now)
+      else
+        raise ArgumentError,
+          "Unknown boolean: #{containment.inspect}. Must be a valid boolean."
+      end
+    end
+
+    def set_containment!
+      self.raw_containment = containment
+      self.containment     = contained? if containment.nil?
     end
 
   end
