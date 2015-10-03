@@ -1,11 +1,12 @@
 module ActiveRegulation
   module Containment
     extend ActiveSupport::Concern
+    include ActiveRegulation::Base
 
     included do
       attr_accessor :containment, :raw_containment
 
-      before_save :record_containment!,   unless: -> (obj) { obj.raw_containment.nil? }
+      before_save :record_containment!, unless: -> (obj) { obj.raw_containment.nil? }
       after_initialize :set_containment!
 
       scope :contained,   -> { where.not(contained_at: nil) }
@@ -35,8 +36,8 @@ module ActiveRegulation
     private
 
     def record_containment!
-      false_value = ActiveRecord::ConnectionAdapters::Column::FALSE_VALUES.include?(containment)
-      true_value  = ActiveRecord::ConnectionAdapters::Column::TRUE_VALUES.include?(containment)
+      false_value = FALSE_VALUES.include?(containment)
+      true_value  = TRUE_VALUES.include?(containment)
 
       if false_value || true_value
         self.contained_at = (false_value ? nil : Time.now)
