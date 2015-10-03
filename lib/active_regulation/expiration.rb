@@ -8,7 +8,7 @@ module ActiveRegulation
     included do
       attr_accessor :expiration, :raw_expiration
 
-      before_save :record_expiration!, unless: -> (obj) { obj.raw_expiration.nil? }
+      before_save :record_expiration!
       after_initialize :set_expiration!
 
       scope :expired,   -> { where("expires_at IS NULL OR expires_at < ?", Time.now) }
@@ -46,14 +46,16 @@ module ActiveRegulation
     end
 
     def record_expiration!
-      false_value = FALSE_VALUES.include?(expiration)
-      true_value  = TRUE_VALUES.include?(expiration)
+      unless raw_expiration.nil?
+        false_value = FALSE_VALUES.include?(expiration)
+        true_value  = TRUE_VALUES.include?(expiration)
 
-      if false_value || true_value
-        self.expires_at = (false_value ? extension_date : nil)
-      else
-        raise ArgumentError,
-          "Unknown boolean: #{expiration.inspect}. Must be a valid boolean."
+        if false_value || true_value
+          self.expires_at = (false_value ? extension_date : nil)
+        else
+          raise ArgumentError,
+            "Unknown boolean: #{expiration.inspect}. Must be a valid boolean."
+        end
       end
     end
 

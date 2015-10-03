@@ -6,7 +6,7 @@ module ActiveRegulation
     included do
       attr_accessor :visibility, :raw_visibility
 
-      before_save :record_visibility!, unless: -> (obj) { obj.raw_visibility.nil? }
+      before_save :record_visibility!
       after_initialize :set_visibility!
 
       scope :visible,   -> { where(invisible_at: nil) }
@@ -36,14 +36,16 @@ module ActiveRegulation
     private
 
     def record_visibility!
-      false_value = FALSE_VALUES.include?(visibility)
-      true_value  = TRUE_VALUES.include?(visibility)
+      unless raw_visibility.nil?
+        false_value = FALSE_VALUES.include?(visibility)
+        true_value  = TRUE_VALUES.include?(visibility)
 
-      if false_value || true_value
-        self.invisible_at = (false_value ? Time.now : nil)
-      else
-        raise ArgumentError,
-          "Unknown boolean: #{visibility.inspect}. Must be a valid boolean."
+        if false_value || true_value
+          self.invisible_at = (false_value ? Time.now : nil)
+        else
+          raise ArgumentError,
+            "Unknown boolean: #{visibility.inspect}. Must be a valid boolean."
+        end
       end
     end
 

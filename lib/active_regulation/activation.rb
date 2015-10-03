@@ -6,7 +6,7 @@ module ActiveRegulation
     included do
       attr_accessor :activation, :raw_activation
 
-      before_save :record_activation!, unless: -> (obj) { obj.raw_activation.nil? }
+      before_save :record_activation!
       after_initialize :set_activation!
 
       scope :active,   -> { where(inactivated_at: nil) }
@@ -36,14 +36,16 @@ module ActiveRegulation
     private
 
     def record_activation!
-      false_value = FALSE_VALUES.include?(activation)
-      true_value  = TRUE_VALUES.include?(activation)
+      unless raw_activation.nil?
+        false_value = FALSE_VALUES.include?(activation)
+        true_value  = TRUE_VALUES.include?(activation)
 
-      if false_value || true_value
-        self.inactivated_at = (false_value ? Time.now : nil)
-      else
-        raise ArgumentError,
-          "Unknown boolean: #{activation.inspect}. Must be a valid boolean."
+        if false_value || true_value
+          self.inactivated_at = (false_value ? Time.now : nil)
+        else
+          raise ArgumentError,
+            "Unknown boolean: #{activation.inspect}. Must be a valid boolean."
+        end
       end
     end
 
