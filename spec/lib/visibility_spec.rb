@@ -2,20 +2,6 @@ require "spec_helper"
 
 describe ActiveRegulation::Visibility do
 
-  describe "#record_visibility!" do
-    it "to be true" do
-      user = User.create!(visibility: 1)
-
-      expect(user.visible?).to eq(true)
-    end
-
-    it "to be false" do
-      user = User.create!(visibility: 0)
-
-      expect(user.visible?).to eq(false)
-    end
-  end
-
   describe "#invisible_at" do
     it "to be nil" do
       user = User.create!

@@ -1,5 +1,4 @@
 require "active_regulation/version"
-require "active_regulation/base"
 require "active_regulation/activation"
 require "active_regulation/containment"
 require "active_regulation/expiration"

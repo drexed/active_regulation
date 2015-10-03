@@ -49,16 +49,11 @@ class User < ActiveRecord::Base
 
   include ActiveRegulation::Containment
 
-  # A virtual attribute is generated for
-  # easy use with forms and models
-
 end
 ```
 
 ## Usage
 ```ruby
-user = User.create!(activation: 1)
-
 user.active?       #=> true
 user.inactive?     #=> false
 

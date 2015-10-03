@@ -2,20 +2,6 @@ require "spec_helper"
 
 describe ActiveRegulation::Activation do
 
-  describe "#record_activation!" do
-    it "to be true" do
-      user = User.create!(activation: 1)
-
-      expect(user.active?).to eq(true)
-    end
-
-    it "to be false" do
-      user = User.create!(activation: 0)
-
-      expect(user.active?).to eq(false)
-    end
-  end
-
   describe "#inactivated_at" do
     it "to be nil" do
       user = User.create!

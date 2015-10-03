@@ -1,14 +1,8 @@
 module ActiveRegulation
   module Activation
     extend ActiveSupport::Concern
-    include ActiveRegulation::Base
 
     included do
-      attr_accessor :activation, :raw_activation
-
-      before_save :record_activation!
-      after_initialize :set_activation!
-
       scope :active,   -> { where(inactivated_at: nil) }
       scope :inactive, -> { where.not(inactivated_at: nil) }
     end
@@ -29,29 +23,12 @@ module ActiveRegulation
       !active?
     end
 
+    def inactivated_at_or_time
+      active? ? Time.now : inactivated_at
+    end
+
     def to_activation
       I18n.t("active_regulation.activation.#{active? ? :active : :inactive}")
-    end
-
-    private
-
-    def record_activation!
-      unless raw_activation.nil?
-        false_value = FALSE_VALUES.include?(activation)
-        true_value  = TRUE_VALUES.include?(activation)
-
-        if false_value || true_value
-          self.inactivated_at = (false_value ? Time.now : nil)
-        else
-          raise ArgumentError,
-            "Unknown boolean: #{activation.inspect}. Must be a valid boolean."
-        end
-      end
-    end
-
-    def set_activation!
-      self.raw_activation = activation
-      self.activation     = active? if activation.nil?
     end
 
   end
