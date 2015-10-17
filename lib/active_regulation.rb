@@ -1,8 +1,8 @@
-require "active_regulation/version"
-require "active_regulation/activation"
-require "active_regulation/containment"
-require "active_regulation/expiration"
-require "active_regulation/visibility"
+require 'active_regulation/version'
+require 'active_regulation/activation'
+require 'active_regulation/containment'
+require 'active_regulation/expiration'
+require 'active_regulation/visibility'
 
 if defined?(Rails)
   require 'rails'
