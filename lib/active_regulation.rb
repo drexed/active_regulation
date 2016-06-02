@@ -1,16 +1,18 @@
-require 'active_regulation/version'
-require 'active_regulation/activation'
-require 'active_regulation/containment'
-require 'active_regulation/expiration'
-require 'active_regulation/visibility'
+require "active_regulation/version"
+require "active_regulation/activation"
+require "active_regulation/containment"
+require "active_regulation/expiration"
+require "active_regulation/quarantine"
+require "active_regulation/suspension"
+require "active_regulation/visibility"
 
 if defined?(Rails)
-  require 'rails'
+  require "rails"
 
   module ActiveRegulation
     class Railtie < ::Rails::Railtie
 
-      initializer 'active_regulation' do |app|
+      initializer "active_regulation" do |app|
         ActiveRegulation::Railtie.instance_eval do
           [app.config.i18n.available_locales].flatten.each do |locale|
             (I18n.load_path << path(locale)) if File.file?(path(locale))

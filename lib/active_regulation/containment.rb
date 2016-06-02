@@ -3,7 +3,7 @@ module ActiveRegulation
     extend ActiveSupport::Concern
 
     included do
-      scope :contained,   -> { where.not(contained_at: nil) }
+      scope :contained, -> { where.not(contained_at: nil) }
       scope :uncontained, -> { where(contained_at: nil) }
     end
 

@@ -3,16 +3,16 @@ module ActiveRegulation
     extend ActiveSupport::Concern
 
     included do
-      scope :visible,   -> { where(invisible_at: nil) }
+      scope :visible, -> { where(invisible_at: nil) }
       scope :invisible, -> { where.not(invisible_at: nil) }
     end
 
     def invisible!
-      update(invisible_at: Time.now)
+      update(invisible_at: Time.now) if visible?
     end
 
     def visible!
-      update(invisible_at: nil)
+      update(invisible_at: nil) if invisible?
     end
 
     def invisible?

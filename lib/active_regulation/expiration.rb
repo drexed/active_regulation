@@ -5,7 +5,7 @@ module ActiveRegulation
     extend ActiveSupport::Concern
 
     included do
-      scope :expired,   -> { where("expires_at IS NULL OR expires_at < ?".freeze, Time.now) }
+      scope :expired, -> { where("expires_at IS NULL OR expires_at < ?".freeze, Time.now) }
       scope :unexpired, -> { where("expires_at IS NOT NULL AND expires_at >= ?".freeze, Time.now) }
     end
 

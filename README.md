@@ -2,7 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/active_regulation.svg)](http://badge.fury.io/rb/active_regulation)
 [![Build Status](https://travis-ci.org/drexed/active_regulation.svg?branch=master)](https://travis-ci.org/drexed/active_regulation)
-[![Coverage Status](https://coveralls.io/repos/drexed/active_regulation/badge.png)](https://coveralls.io/r/drexed/active_regulation)
+[![Coverage Status](https://coveralls.io/repos/github/drexed/active_regulation/badge.svg?branch=master)](https://coveralls.io/github/drexed/active_regulation?branch=master)
 
 ActiveRegulation is a library for commonly used record states.
 
@@ -11,7 +11,7 @@ ActiveRegulation is a library for commonly used record states.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'active_regulation'
+gem "active_regulation"
 ```
 
 And then execute:
@@ -33,6 +33,8 @@ Or install it yourself as:
  * activation
  * containment
  * expiration
+ * quarantine
+ * suspension
  * visibility
 
 **Attributes:**
@@ -40,6 +42,8 @@ Or install it yourself as:
  * :contained_at
  * :expires_at
  * :invisible_at
+ * :quarantined_at
+ * :suspended_at
 
 ```ruby
 class User < ActiveRecord::Base
@@ -71,8 +75,10 @@ User.inactive      #=> retrieves all inactive records
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/active_regulation/fork )
+Your contribution is welcome.
+
+1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+5. Create new Pull Request

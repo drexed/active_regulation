@@ -3,7 +3,7 @@ module ActiveRegulation
     extend ActiveSupport::Concern
 
     included do
-      scope :active,   -> { where(inactivated_at: nil) }
+      scope :active, -> { where(inactivated_at: nil) }
       scope :inactive, -> { where.not(inactivated_at: nil) }
     end
 

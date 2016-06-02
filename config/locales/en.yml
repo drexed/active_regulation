@@ -9,6 +9,12 @@ en:
     expiration:
       expired: "Expired"
       unexpired: "Unexpired"
+    quarantine:
+      quarantined: "Quarantined"
+      unquarantined: "Unquarantined"
+    suspension:
+      suspended: "Suspended"
+      unsuspended: "Unsuspended"
     visibility:
       invisible: "Invisible"
       visible: "Visible"
