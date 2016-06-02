@@ -33,7 +33,7 @@
 
 <p><a href="http://badge.fury.io/rb/active_regulation"><img src="https://badge.fury.io/rb/active_regulation.svg" alt="Gem Version"></a>
 <a href="https://travis-ci.org/drexed/active_regulation"><img src="https://travis-ci.org/drexed/active_regulation.svg?branch=master" alt="Build Status"></a>
-<a href="https://coveralls.io/r/drexed/active_regulation"><img src="https://coveralls.io/repos/drexed/active_regulation/badge.png" alt="Coverage Status"></a></p>
+<a href="https://coveralls.io/github/drexed/active_regulation?branch=master"><img src="https://coveralls.io/repos/github/drexed/active_regulation/badge.svg?branch=master" alt="Coverage Status"></a></p>
 
 <p>ActiveRegulation is a library for commonly used record states.</p>
 
@@ -42,7 +42,7 @@
 
 <p>Add this line to your application's Gemfile:</p>
 
-<div class="highlight highlight-source-ruby"><pre><span class="pl-k">gem</span> <span class="pl-s"><span class="pl-pds">'</span>active_regulation<span class="pl-pds">'</span></span></pre></div>
+<div class="highlight highlight-source-ruby"><pre><span class="pl-k">gem</span> <span class="pl-s"><span class="pl-pds">"</span>active_regulation<span class="pl-pds">"</span></span></pre></div>
 
 <p>And then execute:</p>
 
@@ -71,6 +71,8 @@
 <li>activation</li>
 <li>containment</li>
 <li>expiration</li>
+<li>quarantine</li>
+<li>suspension</li>
 <li>visibility</li>
 </ul>
 
@@ -81,6 +83,8 @@
 <li>:contained_at</li>
 <li>:expires_at</li>
 <li>:invisible_at</li>
+<li>:quarantined_at</li>
+<li>:suspended_at</li>
 </ul>
 
 <div class="highlight highlight-source-ruby"><pre><span class="pl-k">class</span> <span class="pl-en">User<span class="pl-e"> &lt; ActiveRecord::Base</span></span>
@@ -112,12 +116,14 @@ user.to_activation <span class="pl-c">#=&gt; 'Active'</span>
 <h2>
 <a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
 
+<p>Your contribution is welcome.</p>
+
 <ol>
-<li>Fork it ( <a href="https://github.com/%5Bmy-github-username%5D/active_regulation/fork">https://github.com/[my-github-username]/active_regulation/fork</a> )</li>
+<li>Fork it</li>
 <li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
-<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Added some feature'</code>)</li>
 <li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
-<li>Create a new Pull Request</li>
+<li>Create new Pull Request</li>
 </ol>
       </section>
       <footer>
