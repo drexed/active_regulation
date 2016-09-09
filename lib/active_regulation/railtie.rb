@@ -12,7 +12,7 @@ if defined?(Rails)
 
       protected
 
-      def self.path(locale)
+      def path(locale)
         File.expand_path("../../config/locales/#{locale}.yml", __FILE__)
       end
 

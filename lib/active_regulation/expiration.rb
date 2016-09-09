@@ -5,15 +5,15 @@ module ActiveRegulation
     extend ActiveSupport::Concern
 
     included do
-      scope :expired, -> { where("expires_at IS NULL OR expires_at < ?", Time.now) }
-      scope :unexpired, -> { where("expires_at IS NOT NULL AND expires_at >= ?", Time.now) }
+      scope :expired, -> { where('expires_at IS NULL OR expires_at < ?', Time.now) }
+      scope :unexpired, -> { where('expires_at IS NOT NULL AND expires_at >= ?', Time.now) }
     end
 
     def expire!
       update(expires_at: nil) unless expires_at.nil?
     end
 
-    def extend!(amount=nil)
+    def extend!(amount = nil)
       update(expires_at: extension_date(amount))
     end
 
@@ -29,7 +29,7 @@ module ActiveRegulation
       expires_at.nil? ? false : (Time.now < expires_at)
     end
 
-    def expires_at_or_time(amount=nil)
+    def expires_at_or_time(amount = nil)
       expired? ? extension_date(amount) : expires_at
     end
 
@@ -39,7 +39,7 @@ module ActiveRegulation
 
     private
 
-    def extension_date(time=nil)
+    def extension_date(time = nil)
       time = 30 if time.nil?
 
       time.is_a?(Integer) ? (DateTime.now + time) : time
