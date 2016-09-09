@@ -11,7 +11,7 @@ ActiveRegulation is a library for commonly used record states.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "active_regulation"
+gem 'active_regulation'
 ```
 
 And then execute:
@@ -30,20 +30,20 @@ Or install it yourself as:
 ## Methods
 
 **Modules:**
- * activation
- * containment
- * expiration
- * quarantine
- * suspension
- * visibility
+ * `activation`
+ * `containment`
+ * `expiration`
+ * `quarantine`
+ * `suspension`
+ * `visibility`
 
 **Attributes:**
- * :inactivated_at
- * :contained_at
- * :expires_at
- * :invisible_at
- * :quarantined_at
- * :suspended_at
+ * `:inactivated_at`
+ * `:contained_at`
+ * `:expires_at`
+ * `:invisible_at`
+ * `:quarantined_at`
+ * `:suspended_at`
 
 ```ruby
 class User < ActiveRecord::Base

@@ -1,20 +1,20 @@
 en:
   active_regulation:
     activation:
-      active: "Active"
-      inactive: "Inactive"
+      active: 'Active'
+      inactive: 'Inactive'
     containment:
-      contained: "Contained"
-      uncontained: "Uncontained"
+      contained: 'Contained'
+      uncontained: 'Uncontained'
     expiration:
-      expired: "Expired"
-      unexpired: "Unexpired"
+      expired: 'Expired'
+      unexpired: 'Unexpired'
     quarantine:
-      quarantined: "Quarantined"
-      unquarantined: "Unquarantined"
+      quarantined: 'Quarantined'
+      unquarantined: 'Unquarantined'
     suspension:
-      suspended: "Suspended"
-      unsuspended: "Unsuspended"
+      suspended: 'Suspended'
+      unsuspended: 'Unsuspended'
     visibility:
-      invisible: "Invisible"
-      visible: "Visible"
+      invisible: 'Invisible'
+      visible: 'Visible'
