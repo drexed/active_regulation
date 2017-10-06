@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveRegulation
   module Activation
     extend ActiveSupport::Concern
