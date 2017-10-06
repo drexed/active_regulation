@@ -2,7 +2,6 @@
 
 [![Gem Version](https://badge.fury.io/rb/active_regulation.svg)](http://badge.fury.io/rb/active_regulation)
 [![Build Status](https://travis-ci.org/drexed/active_regulation.svg?branch=master)](https://travis-ci.org/drexed/active_regulation)
-[![Coverage Status](https://coveralls.io/repos/github/drexed/active_regulation/badge.svg?branch=master)](https://coveralls.io/github/drexed/active_regulation?branch=master)
 
 ActiveRegulation is a library for commonly used record states.
 
