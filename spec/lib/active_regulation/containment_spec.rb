@@ -79,7 +79,7 @@ describe ActiveRegulation::Containment do
 
   describe '#uncontained' do
     it 'to be 15' do
-      35.times { klass.create!(contained_at: Time.now) }
+      35.times { klass.create!(contained_at: Time.current) }
       15.times { klass.create!(contained_at: nil) }
 
       expect(klass.uncontained.count).to eq(15)
@@ -88,7 +88,7 @@ describe ActiveRegulation::Containment do
 
   describe '#contained' do
     it 'to be 35' do
-      35.times { klass.create!(contained_at: Time.now) }
+      35.times { klass.create!(contained_at: Time.current) }
       15.times { klass.create!(contained_at: nil) }
 
       expect(klass.contained.count).to eq(35)

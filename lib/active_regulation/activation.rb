@@ -14,7 +14,7 @@ module ActiveRegulation
     end
 
     def inactive!
-      update(inactivated_at: Time.now) if active?
+      update(inactivated_at: Time.current) if active?
     end
 
     def active?

@@ -79,7 +79,7 @@ describe ActiveRegulation::Activation do
 
   describe '#active' do
     it 'to be 15' do
-      35.times { klass.create!(inactivated_at: Time.now) }
+      35.times { klass.create!(inactivated_at: Time.current) }
       15.times { klass.create!(inactivated_at: nil) }
 
       expect(klass.active.count).to eq(15)
@@ -88,7 +88,7 @@ describe ActiveRegulation::Activation do
 
   describe '#inactivated' do
     it 'to be 35' do
-      35.times { klass.create!(inactivated_at: Time.now) }
+      35.times { klass.create!(inactivated_at: Time.current) }
       15.times { klass.create!(inactivated_at: nil) }
 
       expect(klass.inactive.count).to eq(35)

@@ -79,7 +79,7 @@ describe ActiveRegulation::Visibility do
 
   describe '#visible' do
     it 'to be 15' do
-      35.times { klass.create!(invisible_at: Time.now) }
+      35.times { klass.create!(invisible_at: Time.current) }
       15.times { klass.create!(invisible_at: nil) }
 
       expect(klass.visible.count).to eq(15)
@@ -88,7 +88,7 @@ describe ActiveRegulation::Visibility do
 
   describe '#invisible' do
     it 'to be 35' do
-      35.times { klass.create!(invisible_at: Time.now) }
+      35.times { klass.create!(invisible_at: Time.current) }
       15.times { klass.create!(invisible_at: nil) }
 
       expect(klass.invisible.count).to eq(35)

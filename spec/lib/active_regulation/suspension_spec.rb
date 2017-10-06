@@ -80,7 +80,7 @@ describe ActiveRegulation::Suspension do
 
   describe '#unsuspended' do
     it 'to be 15' do
-      35.times { klass.create!(suspended_at: Time.now) }
+      35.times { klass.create!(suspended_at: Time.current) }
       15.times { klass.create!(suspended_at: nil) }
 
       expect(klass.unsuspended.count).to eq(15)
@@ -89,7 +89,7 @@ describe ActiveRegulation::Suspension do
 
   describe '#suspended' do
     it 'to be 35' do
-      35.times { klass.create!(suspended_at: Time.now) }
+      35.times { klass.create!(suspended_at: Time.current) }
       15.times { klass.create!(suspended_at: nil) }
 
       expect(klass.suspended.count).to eq(35)

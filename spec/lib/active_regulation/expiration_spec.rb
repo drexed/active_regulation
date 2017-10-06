@@ -129,8 +129,8 @@ describe ActiveRegulation::Expiration do
 
   describe '#unexpired' do
     it 'to be 35' do
-      10.times { klass.create!(expires_at: Time.now) }
-      35.times { klass.create!(expires_at: Time.now + 30) }
+      10.times { klass.create!(expires_at: Time.current) }
+      35.times { klass.create!(expires_at: Time.current + 30) }
       15.times { klass.create!(expires_at: nil) }
 
       expect(klass.unexpired.count).to eq(35)
@@ -139,8 +139,8 @@ describe ActiveRegulation::Expiration do
 
   describe '#expired' do
     it 'to be 25' do
-      10.times { klass.create!(expires_at: Time.now) }
-      35.times { klass.create!(expires_at: Time.now + 30) }
+      10.times { klass.create!(expires_at: Time.current) }
+      35.times { klass.create!(expires_at: Time.current + 30) }
       15.times { klass.create!(expires_at: nil) }
 
       expect(klass.expired.count).to eq(25)

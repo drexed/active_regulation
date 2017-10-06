@@ -79,7 +79,7 @@ describe ActiveRegulation::Quarantine do
 
   describe '#unquarantined' do
     it 'to be 15' do
-      35.times { klass.create!(quarantined_at: Time.now) }
+      35.times { klass.create!(quarantined_at: Time.current) }
       15.times { klass.create!(quarantined_at: nil) }
 
       expect(klass.unquarantined.count).to eq(15)
@@ -88,7 +88,7 @@ describe ActiveRegulation::Quarantine do
 
   describe '#quarantined' do
     it 'to be 35' do
-      35.times { klass.create!(quarantined_at: Time.now) }
+      35.times { klass.create!(quarantined_at: Time.current) }
       15.times { klass.create!(quarantined_at: nil) }
 
       expect(klass.quarantined.count).to eq(35)
