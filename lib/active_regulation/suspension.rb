@@ -10,7 +10,7 @@ module ActiveRegulation
     end
 
     def suspend!
-      update(suspended_at: Time.now) if unsuspended?
+      update(suspended_at: Time.current) if unsuspended?
     end
 
     def unsuspend!
@@ -26,7 +26,7 @@ module ActiveRegulation
     end
 
     def suspended_at_or_time
-      suspended? ? Time.now : suspended_at
+      suspended? ? Time.current : suspended_at
     end
 
     def to_suspension

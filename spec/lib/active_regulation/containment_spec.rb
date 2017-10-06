@@ -3,16 +3,15 @@
 require 'spec_helper'
 
 describe ActiveRegulation::Containment do
+  let(:klass) { User.include(ActiveRegulation::Containment) }
+  let(:user) { klass.create! }
 
   describe '#contained_at' do
     it 'to be nil' do
-      user = User.create!
-
       expect(user.contained_at).to eq(nil)
     end
 
     it 'to be nil' do
-      user = User.create!
       user.contain!
       user.uncontain!
 
@@ -20,7 +19,6 @@ describe ActiveRegulation::Containment do
     end
 
     it 'to not be nil' do
-      user = User.create!
       user.contain!
 
       expect(user.contained_at).not_to eq(nil)
@@ -29,7 +27,6 @@ describe ActiveRegulation::Containment do
 
   describe '#uncontain!' do
     it 'to be true' do
-      user = User.create!
       user.uncontain!
 
       expect(user.uncontained?).to eq(true)
@@ -38,7 +35,6 @@ describe ActiveRegulation::Containment do
 
   describe '#contain!' do
     it 'to be false' do
-      user = User.create!
       user.contain!
 
       expect(user.uncontained?).to eq(false)
@@ -47,13 +43,10 @@ describe ActiveRegulation::Containment do
 
   describe '#uncontained?' do
     it 'to be true' do
-      user = User.create!
-
       expect(user.uncontained?).to eq(true)
     end
 
     it 'to be false' do
-      user = User.create!
       user.contain!
 
       expect(user.uncontained?).to eq(false)
@@ -62,13 +55,10 @@ describe ActiveRegulation::Containment do
 
   describe '#contained?' do
     it 'to be false' do
-      user = User.create!
-
       expect(user.contained?).to eq(false)
     end
 
     it 'to be true' do
-      user = User.create!
       user.contain!
 
       expect(user.contained?).to eq(true)
@@ -77,13 +67,10 @@ describe ActiveRegulation::Containment do
 
   describe '#to_containment' do
     it 'to be "Uncontained"' do
-      user = User.create!
-
       expect(user.to_containment).to eq('Uncontained')
     end
 
     it 'to be "Contained"' do
-      user = User.create!
       user.contain!
 
       expect(user.to_containment).to eq('Contained')
@@ -92,19 +79,19 @@ describe ActiveRegulation::Containment do
 
   describe '#uncontained' do
     it 'to be 15' do
-      35.times { User.create!(contained_at: Time.now) }
-      15.times { User.create!(contained_at: nil) }
+      35.times { klass.create!(contained_at: Time.now) }
+      15.times { klass.create!(contained_at: nil) }
 
-      expect(User.uncontained.count).to eq(15)
+      expect(klass.uncontained.count).to eq(15)
     end
   end
 
   describe '#contained' do
     it 'to be 35' do
-      35.times { User.create!(contained_at: Time.now) }
-      15.times { User.create!(contained_at: nil) }
+      35.times { klass.create!(contained_at: Time.now) }
+      15.times { klass.create!(contained_at: nil) }
 
-      expect(User.contained.count).to eq(35)
+      expect(klass.contained.count).to eq(35)
     end
   end
 

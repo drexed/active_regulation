@@ -10,7 +10,7 @@ module ActiveRegulation
     end
 
     def contain!
-      update(contained_at: Time.now) if uncontained?
+      update(contained_at: Time.current) if uncontained?
     end
 
     def uncontain!
@@ -26,7 +26,7 @@ module ActiveRegulation
     end
 
     def contained_at_or_time
-      uncontained? ? Time.now : contained_at
+      uncontained? ? Time.current : contained_at
     end
 
     def to_containment

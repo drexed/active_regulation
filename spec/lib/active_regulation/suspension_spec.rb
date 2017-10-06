@@ -3,16 +3,15 @@
 require 'spec_helper'
 
 describe ActiveRegulation::Suspension do
+  let(:klass) { User.include(ActiveRegulation::Suspension) }
+  let(:user) { klass.create! }
 
   describe '#suspended_at' do
     it 'to be nil' do
-      user = User.create!
-
       expect(user.suspended_at).to eq(nil)
     end
 
     it 'to be nil' do
-      user = User.create!
       user.suspend!
       user.unsuspend!
 
@@ -20,7 +19,6 @@ describe ActiveRegulation::Suspension do
     end
 
     it 'to not be nil' do
-      user = User.create!
       user.suspend!
 
       expect(user.suspended_at).not_to eq(nil)
@@ -29,7 +27,6 @@ describe ActiveRegulation::Suspension do
 
   describe '#unsuspend!' do
     it 'to be true' do
-      user = User.create!
       user.unsuspend!
 
       expect(user.unsuspended?).to eq(true)
@@ -38,7 +35,6 @@ describe ActiveRegulation::Suspension do
 
   describe '#suspend!' do
     it 'to be false' do
-      user = User.create!
       user.suspend!
 
       expect(user.unsuspended?).to eq(false)
@@ -47,13 +43,10 @@ describe ActiveRegulation::Suspension do
 
   describe '#unsuspended?' do
     it 'to be true' do
-      user = User.create!
-
       expect(user.unsuspended?).to eq(true)
     end
 
     it 'to be false' do
-      user = User.create!
       user.suspend!
 
       expect(user.unsuspended?).to eq(false)
@@ -62,13 +55,10 @@ describe ActiveRegulation::Suspension do
 
   describe '#suspended?' do
     it 'to be false' do
-      user = User.create!
-
       expect(user.suspended?).to eq(false)
     end
 
     it 'to be true' do
-      user = User.create!
       user.suspend!
 
       expect(user.suspended?).to eq(true)
@@ -77,13 +67,11 @@ describe ActiveRegulation::Suspension do
 
   describe '#to_suspension' do
     it 'to be "Unsuspended"' do
-      user = User.create!
 
       expect(user.to_suspension).to eq('Unsuspended')
     end
 
     it 'to be "Suspended"' do
-      user = User.create!
       user.suspend!
 
       expect(user.to_suspension).to eq('Suspended')
@@ -92,19 +80,19 @@ describe ActiveRegulation::Suspension do
 
   describe '#unsuspended' do
     it 'to be 15' do
-      35.times { User.create!(suspended_at: Time.now) }
-      15.times { User.create!(suspended_at: nil) }
+      35.times { klass.create!(suspended_at: Time.now) }
+      15.times { klass.create!(suspended_at: nil) }
 
-      expect(User.unsuspended.count).to eq(15)
+      expect(klass.unsuspended.count).to eq(15)
     end
   end
 
   describe '#suspended' do
     it 'to be 35' do
-      35.times { User.create!(suspended_at: Time.now) }
-      15.times { User.create!(suspended_at: nil) }
+      35.times { klass.create!(suspended_at: Time.now) }
+      15.times { klass.create!(suspended_at: nil) }
 
-      expect(User.suspended.count).to eq(35)
+      expect(klass.suspended.count).to eq(35)
     end
   end
 

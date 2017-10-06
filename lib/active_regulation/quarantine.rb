@@ -10,7 +10,7 @@ module ActiveRegulation
     end
 
     def quarantine!
-      update(quarantined_at: Time.now) if unquarantined?
+      update(quarantined_at: Time.current) if unquarantined?
     end
 
     def unquarantine!
@@ -26,7 +26,7 @@ module ActiveRegulation
     end
 
     def quarantined_at_or_time
-      unquarantined? ? Time.now : quarantined_at
+      unquarantined? ? Time.current : quarantined_at
     end
 
     def to_quarantine

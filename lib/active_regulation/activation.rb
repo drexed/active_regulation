@@ -26,7 +26,7 @@ module ActiveRegulation
     end
 
     def inactivated_at_or_time
-      active? ? Time.now : inactivated_at
+      active? ? Time.current : inactivated_at
     end
 
     def to_activation

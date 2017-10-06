@@ -10,7 +10,7 @@ module ActiveRegulation
     end
 
     def invisible!
-      update(invisible_at: Time.now) if visible?
+      update(invisible_at: Time.current) if visible?
     end
 
     def visible!
@@ -26,7 +26,7 @@ module ActiveRegulation
     end
 
     def invisible_at_or_time
-      visible? ? Time.now : invisible_at
+      visible? ? Time.current : invisible_at
     end
 
     def to_visibility

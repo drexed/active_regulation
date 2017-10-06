@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
-require 'date'
-
 module ActiveRegulation
   module Expiration
     extend ActiveSupport::Concern
 
     included do
-      scope :expired, -> { where('expires_at IS NULL OR expires_at < ?', Time.now) }
-      scope :unexpired, -> { where('expires_at IS NOT NULL AND expires_at >= ?', Time.now) }
+      scope :expired, -> { where('expires_at IS NULL OR expires_at < ?', Time.current) }
+      scope :unexpired, -> { where('expires_at IS NOT NULL AND expires_at >= ?', Time.current) }
     end
 
     def expire!
@@ -24,11 +22,11 @@ module ActiveRegulation
     end
 
     def expired?
-      expires_at.nil? ? true : (Time.now >= expires_at)
+      expires_at.nil? ? true : (Time.current >= expires_at)
     end
 
     def unexpired?
-      expires_at.nil? ? false : (Time.now < expires_at)
+      expires_at.nil? ? false : (Time.current < expires_at)
     end
 
     def expires_at_or_time(amount = nil)
@@ -44,7 +42,7 @@ module ActiveRegulation
     def extension_date(time = nil)
       time = 30 if time.nil?
 
-      time.is_a?(Integer) ? (DateTime.now + time) : time
+      time.is_a?(Integer) ? (Time.current + time) : time
     end
 
   end
