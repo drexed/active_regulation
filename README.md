@@ -3,7 +3,7 @@
 [![Gem Version](https://badge.fury.io/rb/active_regulation.svg)](http://badge.fury.io/rb/active_regulation)
 [![Build Status](https://travis-ci.org/drexed/active_regulation.svg?branch=master)](https://travis-ci.org/drexed/active_regulation)
 
-**NOTE** ActiveRegulation has been deprecated in favor of [Lite::Regulation](https://github.com/drexed/lite-regulation). Its a drop-in replacement, so please make the switch as soon as possible.
+**NOTE** ActiveRegulation has been deprecated in favor of [Lite::Regulations](https://github.com/drexed/lite-regulations). Its a drop-in replacement, so please make the switch as soon as possible.
 
 ActiveRegulation is a library for commonly used record states.
 
